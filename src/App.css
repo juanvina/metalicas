@@ -1,0 +1,144 @@
+body {
+  font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+  overflow-x: hidden;
+}
+
+#menu li > a {
+  font-size: 16px;
+  font-weight: bold;
+  color: #3f3f3f;
+}
+
+#menu li > a:hover {
+  color: #000;
+}
+
+.carousel-inner,
+.carousel-item img {
+  max-height: 39rem;
+}
+
+.carousel-item img {
+  object-fit: cover;
+  height: 39rem;
+}
+
+.servicio-img {
+  width: 60%;
+  max-width: 260px;
+}
+
+.mapa {
+  background: url('/img/mapa.jpg') center/cover no-repeat;
+  width: 100%;
+  height: 400px;
+}
+
+#local {
+  background: #f3f3f3;
+  padding-top: 20px;
+  padding-bottom: 60px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.wrapper {
+  width: 50%;
+  margin-left: 30px;
+  padding-top: 60px;
+}
+
+#numeros-locales {
+  margin-top: 20px;
+}
+
+#numeros-locales div {
+  padding: 0 20px;
+}
+
+#numeros-locales div:not(:last-child) {
+  border-right: 2px solid #3f3f3f;
+}
+
+#numeros-locales div:not(:first-child) {
+  padding-left: 20px;
+}
+
+#numeros-locales p {
+  margin: 0;
+}
+
+#seccion-contacto {
+  background-color: #1b2a4e;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 40px;
+  padding-bottom: 60px;
+  margin-top: 60px;
+}
+
+#bg-contacto {
+  position: absolute;
+  top: -59px;
+  left: 0;
+  width: 100%;
+  line-height: 0;
+  pointer-events: none;
+}
+
+#contenedor-formulario {
+  position: relative;
+  width: 90%;
+  max-width: 500px;
+  background: #fbfafa;
+  border-radius: 8px;
+  padding: 24px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+#titulo-formulario {
+  color: #3f3f3f;
+}
+
+#iconos {
+  margin-left: 12px;
+  font-size: 1.4rem;
+}
+
+#iconos a {
+  color: inherit;
+  margin: 0 6px;
+}
+
+@media (max-width: 768px) {
+  .carousel-inner,
+  .carousel-item img {
+    max-height: 220px;
+    height: 220px;
+  }
+
+  #introduccion {
+    width: 90% !important;
+  }
+
+  .wrapper {
+    width: 90% !important;
+    margin-left: 0 !important;
+    padding-top: 40px !important;
+  }
+
+  #numeros-locales {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #numeros-locales div:not(:last-child) {
+    border-right: none !important;
+    border-bottom: 2px solid #3f3f3f;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+  }
+}
