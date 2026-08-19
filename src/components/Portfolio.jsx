@@ -71,6 +71,35 @@ function ProjectCard({ project, index }) {
   )
 }
 
+const galleryItems = [
+  { src: '/img/Cerca1.jpg', alt: 'Cerca metálica instalada en vivienda', label: 'Cerca metálica' },
+  { src: '/img/Cerca2.jpg', alt: 'Cerca metálica perimetral', label: 'Cerca metálica' },
+  { src: '/img/Cerca3.jpg', alt: 'Cerca metálica en zona verde', label: 'Cerca metálica' },
+  { src: '/img/Escalera1.jpeg', alt: 'Escalera metálica fabricada a la medida', label: 'Escalera metálica' },
+  { src: '/img/Escalera2.jpeg', alt: 'Escalera metálica instalada', label: 'Escalera metálica' },
+  { src: '/img/Escalera3.jpeg', alt: 'Escalera metálica con pasamanos', label: 'Escalera metálica' },
+  { src: '/img/Escalera4.jpeg', alt: 'Escalera metálica industrial', label: 'Escalera metálica' },
+  { src: '/img/Porton1.jpeg', alt: 'Portón metálico corredizo', label: 'Portón metálico' },
+  { src: '/img/Porton2.jpeg', alt: 'Portón metálico de acceso', label: 'Portón metálico' },
+  { src: '/img/Puerta-estilo-reja.jpeg', alt: 'Puerta de seguridad tipo reja', label: 'Puerta tipo reja' },
+  { src: '/img/Ventanal.jpg', alt: 'Ventanal con protección metálica', label: 'Ventanal' },
+]
+
+function GalleryItem({ item, index }) {
+  const [ref, visible] = useReveal()
+
+  return (
+    <figure
+      ref={ref}
+      className={`gallery-item reveal ${visible ? 'reveal--visible' : ''}`}
+      style={{ transitionDelay: `${(index % 6) * 60}ms` }}
+    >
+      <img src={item.src} alt={item.alt} loading="lazy" />
+      <figcaption>{item.label}</figcaption>
+    </figure>
+  )
+}
+
 function PlaceholderCard({ index }) {
   const [ref, visible] = useReveal()
 
@@ -104,6 +133,13 @@ function Portfolio() {
             <ProjectCard project={project} index={index} key={project.number} />
           ))}
           <PlaceholderCard index={projects.length} />
+        </div>
+
+        <h3 className="portfolio__gallery-title">Más trabajos realizados</h3>
+        <div className="portfolio__gallery">
+          {galleryItems.map((item, index) => (
+            <GalleryItem item={item} index={index} key={item.src} />
+          ))}
         </div>
       </div>
     </section>
