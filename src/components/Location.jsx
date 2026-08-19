@@ -1,28 +1,38 @@
-const stats = [
-  { value: '248', label: 'Días de sol al año' },
-  { value: '100%', label: 'Proyectos entregados' },
-  { value: '24°C', label: 'Temperatura promedio' },
-]
+import useReveal from '../hooks/useReveal.js'
+import './Location.css'
 
 function Location() {
-  return (
-    <section id="local" className="border-top border-2">
-      <div className="mapa" role="img" aria-label="Mapa de ubicación en Ibagué, Tolima"></div>
-      <div className="wrapper">
-        <h2>Ubicados en la Ciudad de Ibagué, Tolima</h2>
-        <p className="fs-5 text-body">
-          Atendemos proyectos de fabricación de estructuras metálicas, instalaciones eléctricas,
-          soldadura especializada y reconstrucción de maquinaria pesada para clientes de Ibagué y la región.
-        </p>
+  const [ref, visible] = useReveal()
 
-        <section className="d-flex" id="numeros-locales">
-          {stats.map((stat) => (
-            <div key={stat.label}>
-              <p className="text-primary fs-5 fw-bold">{stat.value}</p>
-              <p>{stat.label}</p>
-            </div>
-          ))}
-        </section>
+  return (
+    <section id="ubicacion" className="location">
+      <div className="container location__grid">
+        <div ref={ref} className={`location__text reveal ${visible ? 'reveal--visible' : ''}`}>
+          <p className="eyebrow">07 — Ubicación</p>
+          <h2 className="location__title">Desde Ibagué, trabajamos para la industria.</h2>
+          <p className="location__paragraph">
+            Estamos ubicados en Ibagué, Tolima, y atendemos proyectos de fabricación de estructuras metálicas,
+            soldadura especializada, instalaciones eléctricas y reconstrucción de maquinaria en la región.
+          </p>
+          <p className="location__paragraph">
+            ¿Tu proyecto está fuera de Ibagué? Cuéntanos el alcance y evaluamos cobertura.
+          </p>
+
+          <div className="location__tag">
+            <span>Ibagué</span>
+            <span>Tolima</span>
+            <span>Colombia</span>
+          </div>
+        </div>
+
+        <div className="location__map">
+          <iframe
+            title="Ubicación de Estructuras Metálicas C.A. en Ibagué, Tolima"
+            src="https://www.google.com/maps?q=Ibagu%C3%A9,Tolima,Colombia&output=embed"
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+          />
+        </div>
       </div>
     </section>
   )

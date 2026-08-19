@@ -1,12 +1,44 @@
 import { useState } from 'react'
+import { IconWhatsApp, IconMail } from './icons.jsx'
+import { buildWhatsAppLink, CONTACT_EMAIL } from '../siteConfig.js'
+import './ContactForm.css'
 
-// TODO: reemplazar por el correo real de la empresa antes de publicar.
-const CONTACT_EMAIL = 'contacto@metalicasca.com'
+const projectTypes = [
+  'Estructuras metálicas',
+  'Soldadura especializada',
+  'Mecanizado / torno',
+  'Instalaciones eléctricas',
+  'Trabajo con láminas',
+  'Reconstrucción de maquinaria',
+  'Otro',
+]
 
-const initialValues = { name: '', email: '', phone: '', message: '' }
+const initialValues = {
+  name: '',
+  company: '',
+  phone: '',
+  email: '',
+  projectType: projectTypes[0],
+  description: '',
+}
+
+function buildMessage(values) {
+  return [
+    `Solicitud de cotización — ${values.name || 'sin nombre'}`,
+    values.company && `Empresa: ${values.company}`,
+    values.phone && `Teléfono: ${values.phone}`,
+    values.email && `Correo: ${values.email}`,
+    `Tipo de proyecto: ${values.projectType}`,
+    '',
+    values.description || 'Sin descripción adicional.',
+  ]
+    .filter(Boolean)
+    .join('\n')
+}
 
 function ContactForm() {
   const [values, setValues] = useState(initialValues)
+  const [fileName, setFileName] = useState('')
   const [sent, setSent] = useState(false)
 
   const handleChange = (event) => {
@@ -15,107 +47,106 @@ function ContactForm() {
     setSent(false)
   }
 
+  const handleFile = (event) => {
+    setFileName(event.target.files?.[0]?.name ?? '')
+  }
+
   const handleSubmit = (event) => {
     event.preventDefault()
-
-    // No hay backend configurado todavía: se abre el cliente de correo con el
-    // mensaje prellenado. Para producción, reemplazar por una llamada a un
-    // servicio como Formspree/EmailJS o a un endpoint propio.
-    const subject = encodeURIComponent(`Contacto desde la web - ${values.name}`)
-    const body = encodeURIComponent(
-      `Nombre: ${values.name}\nTeléfono: ${values.phone}\nEmail: ${values.email}\n\n${values.message}`,
-    )
-    window.location.href = `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`
-
-    setValues(initialValues)
+    window.open(buildWhatsAppLink(buildMessage(values)), '_blank', 'noopener,noreferrer')
     setSent(true)
   }
 
-  return (
-    <section id="seccion-contacto" className="border-bottom border-secondary border-2">
-      <div id="bg-contacto">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" aria-hidden="true">
-          <path
-            fill="#1b2a4e"
-            fillOpacity="1"
-            d="M0,32L120,42.7C240,53,480,75,720,74.7C960,75,1200,53,1320,42.7L1440,32L1440,320L1320,320C1200,320,960,320,720,320C480,320,240,320,120,320L0,320Z"
-          ></path>
-        </svg>
-      </div>
+  const subject = encodeURIComponent(`Solicitud de cotización — ${values.name || 'sitio web'}`)
+  const body = encodeURIComponent(buildMessage(values))
+  const mailtoHref = `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`
 
-      <div className="border-top border-primary" id="contenedor-formulario">
-        <div className="text-center mb-4" id="titulo-formulario">
-          <img src="/img/contactenos.png" width="120" height="120" alt="" className="img-fluid" />
-          <h2>Contáctanos</h2>
-          <p className="fs-5">Escríbenos tus inquietudes</p>
+  return (
+    <section id="contacto" className="contact">
+      <div className="container contact__grid">
+        <div className="contact__intro">
+          <p className="eyebrow">08 — Contacto</p>
+          <h2 className="contact__title">Solicitar cotización</h2>
+          <p className="contact__paragraph">
+            Cuéntanos qué necesitas fabricar, instalar o reparar. Te respondemos directamente para definir alcance,
+            planos o fotografías si el proyecto lo requiere.
+          </p>
+
+          <div className="contact__direct">
+            <a
+              className="contact__direct-link"
+              href={buildWhatsAppLink('Hola, quiero solicitar una cotización.')}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <IconWhatsApp width={20} height={20} /> Escribir por WhatsApp
+            </a>
+            <a className="contact__direct-link" href={`mailto:${CONTACT_EMAIL}`}>
+              <IconMail width={20} height={20} /> {CONTACT_EMAIL}
+            </a>
+          </div>
         </div>
 
-        <form onSubmit={handleSubmit} noValidate>
-          <div className="form-floating mb-3">
-            <input
-              type="text"
-              className="form-control"
-              id="name"
-              name="name"
-              placeholder="Nombre"
-              value={values.name}
-              onChange={handleChange}
-              required
-            />
-            <label htmlFor="name">Nombre</label>
+        <form className="contact__form" onSubmit={handleSubmit} noValidate>
+          <div className="contact__row">
+            <label>
+              Nombre
+              <input type="text" name="name" value={values.name} onChange={handleChange} required />
+            </label>
+            <label>
+              Empresa (opcional)
+              <input type="text" name="company" value={values.company} onChange={handleChange} />
+            </label>
           </div>
 
-          <div className="form-floating mb-3">
-            <input
-              type="email"
-              className="form-control"
-              id="email"
-              name="email"
-              placeholder="nombre@ejemplo.com"
-              value={values.email}
-              onChange={handleChange}
-              required
-            />
-            <label htmlFor="email">Correo electrónico</label>
+          <div className="contact__row">
+            <label>
+              Teléfono / WhatsApp
+              <input type="tel" name="phone" value={values.phone} onChange={handleChange} required />
+            </label>
+            <label>
+              Correo electrónico
+              <input type="email" name="email" value={values.email} onChange={handleChange} required />
+            </label>
           </div>
 
-          <div className="form-floating mb-3">
-            <input
-              type="tel"
-              className="form-control"
-              id="phone"
-              name="phone"
-              placeholder="Teléfono"
-              value={values.phone}
-              onChange={handleChange}
-              required
-            />
-            <label htmlFor="phone">Teléfono</label>
-          </div>
+          <label>
+            Tipo de proyecto
+            <select name="projectType" value={values.projectType} onChange={handleChange}>
+              {projectTypes.map((type) => (
+                <option key={type} value={type}>
+                  {type}
+                </option>
+              ))}
+            </select>
+          </label>
 
-          <div className="form-floating mb-3">
-            <textarea
-              className="form-control"
-              id="message"
-              name="message"
-              placeholder="Mensaje"
-              style={{ height: '120px' }}
-              value={values.message}
-              onChange={handleChange}
-              required
-            ></textarea>
-            <label htmlFor="message">Mensaje</label>
-          </div>
+          <label>
+            Descripción del proyecto
+            <textarea name="description" value={values.description} onChange={handleChange} rows={4} required />
+          </label>
 
-          <div className="mb-3">
-            <button type="submit" className="btn btn-primary w-100 fs-5">
-              Enviar Mensaje
-            </button>
-          </div>
+          <label className="contact__file">
+            Adjuntar archivo (planos, fotos, medidas)
+            <input type="file" onChange={handleFile} accept="image/*,.pdf" />
+            {fileName && <span className="contact__file-name">{fileName}</span>}
+            <span className="contact__file-note">
+              Este formulario todavía no envía archivos adjuntos: al escribirte por WhatsApp o correo te los
+              pedimos directamente.
+            </span>
+          </label>
+
+          <button type="submit" className="btn btn--primary contact__submit">
+            <IconWhatsApp width={18} height={18} /> Enviar solicitud por WhatsApp
+          </button>
+
+          <a className="contact__mail-fallback" href={mailtoHref}>
+            Prefiero escribir por correo
+          </a>
 
           {sent && (
-            <p className="text-success text-center" role="status">
-              Se abrió tu cliente de correo con el mensaje listo para enviar.
+            <p className="contact__sent" role="status">
+              Se abrió WhatsApp con tu mensaje listo para enviar.
             </p>
           )}
         </form>

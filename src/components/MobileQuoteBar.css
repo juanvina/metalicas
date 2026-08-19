@@ -1,0 +1,30 @@
+.mobile-quote-bar {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .mobile-quote-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 90;
+    height: 58px;
+    background: #25d366;
+    color: #0c1a12;
+    font-family: var(--font-mono);
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.18);
+  }
+
+  body {
+    padding-bottom: 58px;
+  }
+}

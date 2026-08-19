@@ -1,25 +1,29 @@
-import Header from './components/Header.jsx'
 import Navbar from './components/Navbar.jsx'
-import Carousel from './components/Carousel.jsx'
-import Intro from './components/Intro.jsx'
-import Services from './components/Services.jsx'
-import Team from './components/Team.jsx'
+import Hero from './components/Hero.jsx'
+import Capabilities from './components/Capabilities.jsx'
+import Portfolio from './components/Portfolio.jsx'
+import Process from './components/Process.jsx'
+import About from './components/About.jsx'
+import Trust from './components/Trust.jsx'
 import Location from './components/Location.jsx'
 import ContactForm from './components/ContactForm.jsx'
 import Footer from './components/Footer.jsx'
+import MobileQuoteBar from './components/MobileQuoteBar.jsx'
 
 function App() {
   return (
     <>
-      <Header />
       <Navbar />
-      <Carousel />
-      <Intro />
-      <Services />
-      <Team />
+      <Hero />
+      <Capabilities />
+      <Portfolio />
+      <Process />
+      <About />
+      <Trust />
       <Location />
       <ContactForm />
       <Footer />
+      <MobileQuoteBar />
     </>
   )
 }

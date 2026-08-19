@@ -1,0 +1,141 @@
+.contact {
+  padding: var(--section-pad) 0;
+  background: var(--carbon);
+  color: var(--white);
+}
+
+.contact__grid {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 64px;
+}
+
+.contact__title {
+  color: var(--white);
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  margin: 16px 0 20px;
+}
+
+.contact__paragraph {
+  color: var(--steel-200);
+  line-height: 1.6;
+  max-width: 44ch;
+}
+
+.contact__direct {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 32px;
+}
+
+.contact__direct-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--white);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  padding-bottom: 8px;
+  width: fit-content;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.contact__direct-link:hover {
+  color: var(--orange);
+  border-color: var(--orange);
+}
+
+.contact__form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.contact__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.contact__form label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--steel-200);
+}
+
+.contact__form input,
+.contact__form select,
+.contact__form textarea {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  text-transform: none;
+  letter-spacing: normal;
+  background: var(--carbon-soft);
+  border: 1px solid var(--steel-600);
+  color: var(--white);
+  padding: 12px 14px;
+  border-radius: 2px;
+}
+
+.contact__form input:focus,
+.contact__form select:focus,
+.contact__form textarea:focus {
+  outline: none;
+  border-color: var(--orange);
+}
+
+.contact__file input[type='file'] {
+  padding: 8px;
+  color: var(--steel-200);
+}
+
+.contact__file-name {
+  color: var(--orange);
+  font-size: 0.8rem;
+  text-transform: none;
+}
+
+.contact__file-note {
+  color: var(--steel-400);
+  font-size: 0.72rem;
+  text-transform: none;
+  letter-spacing: normal;
+  line-height: 1.4;
+}
+
+.contact__submit {
+  justify-content: center;
+  margin-top: 8px;
+}
+
+.contact__mail-fallback {
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--steel-400);
+  text-decoration: underline;
+}
+
+.contact__sent {
+  color: var(--orange);
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+@media (max-width: 900px) {
+  .contact__grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .contact__row {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,43 +1,51 @@
-import { useState } from 'react'
-
-const links = [
-  { href: '#introduccion', label: 'Inicio' },
-  { href: '#servicios', label: 'Productos' },
-  { href: '#seccion-contacto', label: 'Contáctenos' },
-]
+import { useEffect, useState } from 'react'
+import { IconMenu, IconClose } from './icons.jsx'
+import { NAV_LINKS } from '../siteConfig.js'
+import './Navbar.css'
 
 function Navbar() {
   const [open, setOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 40)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
+  const close = () => setOpen(false)
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-white shadow-sm p-3" id="menu">
-      <div className="container-fluid">
-        <a className="navbar-brand text-primary fs-5 fw-bold" href="#introduccion">
-          Nosotros
+    <header className={`navbar ${scrolled ? 'navbar--solid' : ''} ${open ? 'navbar--open' : ''}`}>
+      <div className="container navbar__inner">
+        <a href="#inicio" className="navbar__brand" onClick={close}>
+          <span className="navbar__brand-main">ESTRUCTURAS METÁLICAS</span>
+          <span className="navbar__brand-suffix">C.A.</span>
         </a>
+
+        <nav className={`navbar__links ${open ? 'navbar__links--open' : ''}`}>
+          {NAV_LINKS.map((link) => (
+            <a key={link.href} href={link.href} onClick={close}>
+              {link.label}
+            </a>
+          ))}
+          <a href="#contacto" className="btn btn--primary navbar__cta" onClick={close}>
+            Solicitar cotización
+          </a>
+        </nav>
+
         <button
-          className="navbar-toggler"
           type="button"
-          aria-controls="navbarSupportedContent"
+          className="navbar__toggle"
+          aria-label={open ? 'Cerrar menú' : 'Abrir menú'}
           aria-expanded={open}
-          aria-label="Mostrar u ocultar navegación"
           onClick={() => setOpen((prev) => !prev)}
         >
-          <span className="navbar-toggler-icon"></span>
+          {open ? <IconClose width={22} height={22} /> : <IconMenu width={22} height={22} />}
         </button>
-        <div className={`collapse navbar-collapse ${open ? 'show' : ''}`} id="navbarSupportedContent">
-          <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-            {links.map((link) => (
-              <li className="nav-item" key={link.href}>
-                <a className="nav-link" href={link.href} onClick={() => setOpen(false)}>
-                  {link.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
       </div>
-    </nav>
+    </header>
   )
 }
 
