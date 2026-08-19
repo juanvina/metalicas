@@ -94,6 +94,14 @@ export function IconWhatsApp(props) {
   )
 }
 
+export function IconArrowUp(props) {
+  return (
+    <svg {...base} {...props}>
+      <path d="M12 19V5M5 12l7-7 7 7" />
+    </svg>
+  )
+}
+
 export function IconMail(props) {
   return (
     <svg {...base} {...props}>

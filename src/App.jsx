@@ -9,6 +9,7 @@ import Location from './components/Location.jsx'
 import ContactForm from './components/ContactForm.jsx'
 import Footer from './components/Footer.jsx'
 import MobileQuoteBar from './components/MobileQuoteBar.jsx'
+import BackToTop from './components/BackToTop.jsx'
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
       <ContactForm />
       <Footer />
       <MobileQuoteBar />
+      <BackToTop />
     </>
   )
 }
